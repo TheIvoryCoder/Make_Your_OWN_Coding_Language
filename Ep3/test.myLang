@@ -1,0 +1,2 @@
+var myVar = 2*8
+print myVar
