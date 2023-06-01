@@ -54,5 +54,19 @@ def parse(file):
     lines = lexer(contents)
     for i in range(len(lines)):
         line = lines[i]
+        inst_line = ""
+        for y in range(len(line)):
+            token = line[y]
+            if token[0] == 'symbol':
+                if token[1] in Symbols:
+                    if token[1] == 'var':
+                        inst_line += 'Vars["'
+                        if re.match(r'[.a-zA-Z0-9_]+', line[y+1][1]):
+                            inst_line += line[y+1][1] + '"] = '
+                        else:
+                            # throw error
+                            break
+                        inst_line += line[y+2][1]
+                        exec(inst_line)
         
     return lines
